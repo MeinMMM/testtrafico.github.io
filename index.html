@@ -7,11 +7,24 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <!-- GA4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XV9YYH466"></script>
+  <!-- GA4 Consent Mode v2 — debe ir ANTES del script de GA4 -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
+
+    // Consent por defecto: todo denegado hasta que el usuario elija
+    gtag('consent', 'default', {
+      analytics_storage:    'denied',
+      ad_storage:           'denied',
+      ad_user_data:         'denied',
+      ad_personalization:   'denied',
+      wait_for_update:      1000
+    });
+  </script>
+
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XV9YYH466"></script>
+  <script>
     gtag('js', new Date());
     gtag('config', 'G-6XV9YYH466', { debug_mode: true });
   </script>
@@ -998,6 +1011,19 @@
     </div>
 
     <div class="debug-section">
+      <div class="debug-section-title">Consent Mode v2</div>
+      <div id="debug-consent">
+        <div class="debug-status warn">Esperando decisión del usuario...</div>
+      </div>
+      <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+        <button onclick="setConsent('all')" style="flex:1;padding:6px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(134,239,172,0.1);border:1px solid rgba(134,239,172,0.3);color:#86efac;cursor:pointer;font-family:'DM Mono',monospace">Aceptar todo</button>
+        <button onclick="setConsent('analytics')" style="flex:1;padding:6px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(232,255,0,0.08);border:1px solid rgba(232,255,0,0.3);color:#e8ff00;cursor:pointer;font-family:'DM Mono',monospace">Solo analítica</button>
+        <button onclick="setConsent('deny')" style="flex:1;padding:6px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.3);color:#f87171;cursor:pointer;font-family:'DM Mono',monospace">Rechazar</button>
+        <button onclick="localStorage.removeItem('apex_consent');location.reload()" style="flex:1;padding:6px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);color:#666;cursor:pointer;font-family:'DM Mono',monospace">Reset</button>
+      </div>
+    </div>
+
+    <div class="debug-section">
       <div class="debug-section-title">GA4 Events log</div>
       <div id="debug-log">Esperando eventos...</div>
     </div>
@@ -1006,6 +1032,51 @@
 </div>
 
 <button class="debug-toggle" id="debug-toggle" onclick="document.getElementById('debug-panel').classList.add('visible'); this.style.display='none'">⚡ Debug</button>
+
+<!-- COOKIE BANNER -->
+<div id="cookie-banner" style="
+  display:none;
+  position:fixed; bottom:0; left:0; right:0;
+  background:#0f0f0f;
+  border-top:1px solid rgba(232,255,0,0.3);
+  padding:24px 48px;
+  z-index:9998;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:32px;
+  flex-wrap:wrap;
+  font-family:'DM Sans',sans-serif;
+  box-shadow:0 -8px 40px rgba(0,0,0,0.6);
+">
+  <div style="flex:1;min-width:280px">
+    <div style="font-size:13px;font-weight:600;color:#f5f5f0;margin-bottom:6px">Este sitio usa cookies</div>
+    <div style="font-size:12px;color:#666;line-height:1.6">Usamos cookies para analizar el tráfico y mejorar tu experiencia. Puedes elegir qué tipos aceptas.</div>
+  </div>
+  <div style="display:flex;gap:10px;flex-shrink:0;flex-wrap:wrap">
+    <button onclick="setConsent('deny')" style="
+      padding:10px 20px;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;
+      background:transparent;border:1px solid #333;color:#888;cursor:pointer;font-family:'DM Sans',sans-serif;
+      transition:border-color 0.2s,color 0.2s;
+    " onmouseover="this.style.borderColor='#666';this.style.color='#ccc'" onmouseout="this.style.borderColor='#333';this.style.color='#888'">
+      Rechazar todo
+    </button>
+    <button onclick="setConsent('analytics')" style="
+      padding:10px 20px;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;
+      background:transparent;border:1px solid rgba(232,255,0,0.4);color:rgba(232,255,0,0.8);cursor:pointer;font-family:'DM Sans',sans-serif;
+      transition:border-color 0.2s,color 0.2s;
+    " onmouseover="this.style.borderColor='rgba(232,255,0,0.8)';this.style.color='#e8ff00'" onmouseout="this.style.borderColor='rgba(232,255,0,0.4)';this.style.color='rgba(232,255,0,0.8)'">
+      Solo analítica
+    </button>
+    <button onclick="setConsent('all')" style="
+      padding:10px 20px;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;
+      background:#e8ff00;border:1px solid #e8ff00;color:#080808;cursor:pointer;font-family:'DM Sans',sans-serif;
+      transition:transform 0.15s;
+    " onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+      Aceptar todo
+    </button>
+  </div>
+</div>
 
 
 <script>
@@ -1083,6 +1154,58 @@
       addLog('session_start', `src="${params.get('utm_source')}" med="${params.get('utm_medium')}"`);
     }
   }, 600);
+
+  // ========================
+  // CONSENT MODE v2
+  // ========================
+  const consentKey = 'apex_consent';
+  const savedConsent = localStorage.getItem(consentKey);
+
+  function setConsent(choice) {
+    localStorage.setItem(consentKey, choice);
+    document.getElementById('cookie-banner').style.display = 'none';
+
+    const states = {
+      all:       { analytics_storage:'granted', ad_storage:'granted', ad_user_data:'granted', ad_personalization:'granted' },
+      analytics: { analytics_storage:'granted', ad_storage:'denied',  ad_user_data:'denied',  ad_personalization:'denied'  },
+      deny:      { analytics_storage:'denied',  ad_storage:'denied',  ad_user_data:'denied',  ad_personalization:'denied'  }
+    };
+
+    gtag('consent', 'update', states[choice]);
+
+    const labels = { all:'✓ Aceptado todo', analytics:'✓ Solo analítica', deny:'✗ Rechazado todo' };
+    const colors  = { all:'#86efac', analytics:'#e8ff00', deny:'#f87171' };
+
+    addLog('consent_update', `analytics=${states[choice].analytics_storage} ads=${states[choice].ad_storage}`);
+    updateConsentDebug(choice, states[choice]);
+
+    // Si aceptaron analítica, GA4 ya puede trackear sesión
+    if (choice !== 'deny') {
+      addLog('session_start', `consent="${choice}" utm_source="${params.get('utm_source') || '—'}"`);
+    } else {
+      addLog('⚠ session blocked', 'analytics_storage=denied — GA4 en modo cookieless');
+    }
+  }
+
+  function updateConsentDebug(choice, state) {
+    const el = document.getElementById('debug-consent');
+    if (!el) return;
+    const color = { all:'#86efac', analytics:'#e8ff00', deny:'#f87171' }[choice];
+    el.innerHTML = `
+      <div class="debug-row"><span class="debug-key">elección</span><span class="debug-val" style="color:${color}">${choice}</span></div>
+      <div class="debug-row"><span class="debug-key">analytics</span><span class="debug-val ${state.analytics_storage==='granted'?'ok':'err'}">${state.analytics_storage}</span></div>
+      <div class="debug-row"><span class="debug-key">ad_storage</span><span class="debug-val ${state.ad_storage==='granted'?'ok':'err'}">${state.ad_storage}</span></div>
+      <div class="debug-row"><span class="debug-key">ad_user_data</span><span class="debug-val ${state.ad_user_data==='granted'?'ok':'err'}">${state.ad_user_data}</span></div>
+      <div class="debug-row"><span class="debug-key">ad_personal.</span><span class="debug-val ${state.ad_personalization==='granted'?'ok':'err'}">${state.ad_personalization}</span></div>
+    `;
+  }
+
+  // Mostrar banner si no hay consent guardado
+  if (!savedConsent) {
+    document.getElementById('cookie-banner').style.display = 'flex';
+  } else {
+    setConsent(savedConsent);
+  }
 
   // GA4 tracking
   gtag('event', 'page_view', {
