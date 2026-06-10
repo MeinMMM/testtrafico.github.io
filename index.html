@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>APEX SPORT — Equipamiento de Alto Rendimiento</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XV9YYH466"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-6XV9YYH466', { debug_mode: true });
+  </script>
+
+  <style>
+    :root {
+      --black: #080808;
+      --yellow: #E8FF00;
+      --white: #F5F5F0;
+      --gray: #1A1A1A;
+      --mid: #444;
+      --light: #888;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* Custom cursor */
+    .cursor {
+      width: 12px; height: 12px;
+      background: var(--yellow);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s, width 0.2s, height 0.2s;
+      mix-blend-mode: difference;
+    }
+    .cursor.hover { width: 40px; height: 40px; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 48px;
+      mix-blend-mode: difference;
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 4px;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex; gap: 40px; list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; }
+
+    .nav-cta {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: var(--yellow);
+      color: var(--black);
+      padding: 10px 24px;
+      text-decoration: none;
+      transition: transform 0.15s;
+    }
+    .nav-cta:hover { transform: scale(1.03); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 120px 48px 80px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-tag {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.2s;
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(80px, 10vw, 140px);
+      line-height: 0.9;
+      letter-spacing: -2px;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.4s;
+    }
+
+    .hero-title em {
+      font-style: normal;
+      color: var(--yellow);
+      display: block;
+    }
+
+    .hero-desc {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--light);
+      max-width: 380px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.6s;
+    }
+
+    .hero-actions {
+      display: flex; gap: 16px; align-items: center;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.8s;
+    }
+
+    .btn-primary {
+      background: var(--yellow);
+      color: var(--black);
+      padding: 16px 36px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      display: inline-block;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(232,255,0,0.3);
+    }
+
+    .btn-ghost {
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.3);
+      padding-bottom: 2px;
+      transition: border-color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--white); }
+
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-img-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 60% 40%, rgba(232,255,0,0.12) 0%, transparent 60%),
+        linear-gradient(135deg, #111 0%, #1a1a1a 100%);
+    }
+
+    .hero-shoe {
+      position: absolute;
+      bottom: -40px; right: -60px;
+      width: 110%;
+      opacity: 0;
+      animation: slideLeft 1s ease forwards 0.5s;
+    }
+
+    /* SVG Shoe placeholder */
+    .shoe-graphic {
+      position: absolute;
+      bottom: 40px; right: -20px;
+      width: 620px;
+      opacity: 0;
+      animation: slideLeft 1s ease forwards 0.5s;
+    }
+
+    .hero-stats {
+      position: absolute;
+      bottom: 80px; left: -24px;
+      display: flex; flex-direction: column; gap: 16px;
+      z-index: 3;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+      padding: 16px 24px;
+      min-width: 160px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards;
+    }
+    .stat-card:nth-child(1) { animation-delay: 1s; }
+    .stat-card:nth-child(2) { animation-delay: 1.2s; }
+
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px;
+      color: var(--yellow);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 11px;
+      color: var(--light);
+      letter-spacing: 1px;
+      margin-top: 4px;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px; left: 48px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--light);
+      display: flex; align-items: center; gap: 12px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 1.4s;
+    }
+    .hero-scroll::before {
+      content: '';
+      width: 40px; height: 1px;
+      background: var(--light);
+    }
+
+    /* TICKER */
+    .ticker {
+      background: var(--yellow);
+      color: var(--black);
+      padding: 14px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .ticker-inner {
+      display: inline-flex;
+      animation: ticker 20s linear infinite;
+    }
+
+    .ticker-item {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      letter-spacing: 3px;
+      padding: 0 40px;
+    }
+
+    .ticker-sep {
+      color: var(--black);
+      opacity: 0.3;
+    }
+
+    /* PRODUCTS */
+    .products {
+      padding: 120px 48px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 64px;
+    }
+
+    .section-tag {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 6vw, 80px);
+      line-height: 0.95;
+      letter-spacing: -1px;
+    }
+
+    .see-all {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--light);
+      text-decoration: none;
+      border-bottom: 1px solid var(--mid);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+      margin-bottom: 8px;
+    }
+    .see-all:hover { color: var(--white); border-color: var(--white); }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 2px;
+    }
+
+    .product-card {
+      background: var(--gray);
+      position: relative;
+      overflow: hidden;
+      cursor: none;
+    }
+
+    .product-card:nth-child(1) { grid-row: span 2; }
+
+    .product-img {
+      width: 100%;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-card:nth-child(1) .product-img { aspect-ratio: auto; min-height: 500px; }
+
+    .product-visual {
+      width: 80%;
+      height: 80%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.4s ease;
+    }
+    .product-card:hover .product-visual { transform: scale(1.05) rotate(-3deg); }
+
+    .product-badge {
+      position: absolute;
+      top: 20px; right: 20px;
+      background: var(--yellow);
+      color: var(--black);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 6px 12px;
+    }
+
+    .product-info {
+      padding: 24px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .product-cat {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--light);
+      margin-bottom: 6px;
+    }
+
+    .product-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+      line-height: 1.1;
+    }
+
+    .product-card:nth-child(1) .product-name { font-size: 40px; }
+
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .product-price {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--yellow);
+    }
+
+    .product-card:nth-child(1) .product-price { font-size: 28px; }
+
+    .add-btn {
+      width: 40px; height: 40px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white);
+      font-size: 20px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: none;
+      transition: background 0.2s, border-color 0.2s;
+      text-decoration: none;
+    }
+    .add-btn:hover {
+      background: var(--yellow);
+      color: var(--black);
+      border-color: var(--yellow);
+    }
+
+    /* BANNER */
+    .promo-banner {
+      margin: 0 48px;
+      background: var(--yellow);
+      padding: 80px 64px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .promo-banner::before {
+      content: 'SALE';
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 300px;
+      color: rgba(0,0,0,0.06);
+      position: absolute;
+      right: -20px; top: -60px;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .promo-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.5);
+      margin-bottom: 16px;
+    }
+
+    .promo-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 6vw, 80px);
+      color: var(--black);
+      line-height: 0.95;
+      letter-spacing: -1px;
+    }
+
+    .promo-sub {
+      font-size: 16px;
+      color: rgba(0,0,0,0.6);
+      margin-top: 16px;
+      max-width: 400px;
+    }
+
+    .promo-cta {
+      background: var(--black);
+      color: var(--yellow);
+      padding: 18px 40px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: transform 0.15s;
+      position: relative; z-index: 1;
+    }
+    .promo-cta:hover { transform: scale(1.03); }
+
+    /* CATEGORIES */
+    .categories {
+      padding: 120px 48px;
+    }
+
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      margin-top: 64px;
+    }
+
+    .cat-card {
+      background: var(--gray);
+      padding: 40px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      cursor: none;
+      transition: background 0.2s;
+      text-decoration: none;
+      color: inherit;
+    }
+    .cat-card:hover { background: #222; }
+    .cat-card:hover .cat-arrow { transform: translateX(6px); }
+
+    .cat-icon {
+      font-size: 40px;
+      line-height: 1;
+    }
+
+    .cat-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      letter-spacing: 1px;
+      line-height: 1;
+    }
+
+    .cat-count {
+      font-size: 12px;
+      color: var(--light);
+      letter-spacing: 1px;
+    }
+
+    .cat-arrow {
+      font-size: 20px;
+      color: var(--yellow);
+      margin-top: auto;
+      transition: transform 0.2s;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 60px 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 40px;
+      letter-spacing: 4px;
+      margin-bottom: 12px;
+    }
+
+    .footer-sub {
+      font-size: 13px;
+      color: var(--light);
+    }
+
+    .footer-right {
+      text-align: right;
+      font-size: 12px;
+      color: var(--mid);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideLeft {
+      from { opacity: 0; transform: translateX(60px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes ticker {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ===================== */
+    /* DEBUG PANEL           */
+    /* ===================== */
+    #debug-panel {
+      display: none;
+      position: fixed;
+      bottom: 20px; right: 20px;
+      width: 400px;
+      max-height: 85vh;
+      background: rgba(8,8,8,0.96);
+      border: 1px solid var(--yellow);
+      border-radius: 2px;
+      z-index: 10000;
+      overflow: hidden;
+      font-family: 'DM Mono', monospace;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.8);
+    }
+
+    #debug-panel.visible { display: flex; flex-direction: column; }
+
+    .debug-header {
+      background: var(--yellow);
+      color: var(--black);
+      padding: 10px 16px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .debug-close {
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 1;
+      background: none;
+      border: none;
+      color: var(--black);
+      font-weight: 700;
+    }
+
+    .debug-body { overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 16px; }
+
+    .debug-section { display: flex; flex-direction: column; gap: 8px; }
+
+    .debug-section-title {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--yellow);
+      border-bottom: 1px solid rgba(232,255,0,0.2);
+      padding-bottom: 6px;
+    }
+
+    .debug-row {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 8px;
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .debug-key { color: #666; }
+
+    .debug-val { color: #eee; word-break: break-all; }
+    .debug-val.ok { color: #86efac; }
+    .debug-val.err { color: #f87171; }
+    .debug-val.warn { color: var(--yellow); }
+
+    .debug-status {
+      padding: 10px 12px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+    .debug-status.ok { background: rgba(134,239,172,0.1); color: #86efac; border: 1px solid rgba(134,239,172,0.2); }
+    .debug-status.err { background: rgba(248,113,113,0.1); color: #f87171; border: 1px solid rgba(248,113,113,0.2); }
+    .debug-status.warn { background: rgba(232,255,0,0.08); color: var(--yellow); border: 1px solid rgba(232,255,0,0.2); }
+
+    #debug-log {
+      background: #0d0d0d;
+      padding: 10px;
+      font-size: 10px;
+      line-height: 1.8;
+      max-height: 160px;
+      overflow-y: auto;
+      color: #86efac;
+    }
+
+    .debug-toggle {
+      display: none;
+      position: fixed;
+      bottom: 20px; right: 20px;
+      background: var(--yellow);
+      color: var(--black);
+      border: none;
+      padding: 10px 16px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      z-index: 10001;
+      font-family: 'DM Mono', monospace;
+    }
+  </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">APEX</a>
+  <ul class="nav-links">
+    <li><a href="#">Running</a></li>
+    <li><a href="#">Training</a></li>
+    <li><a href="#">Outdoor</a></li>
+    <li><a href="#">Colecciones</a></li>
+  </ul>
+  <a class="nav-cta" href="#">Tienda</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Nueva Colección — Verano 2026</div>
+    <h1 class="hero-title">
+      Supera<br>
+      <em>tus</em><br>
+      límites
+    </h1>
+    <p class="hero-desc">Equipamiento técnico diseñado para atletas que no se conforman con menos. Rendimiento sin compromiso.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#">Explorar colección</a>
+      <a class="btn-ghost" href="#">Ver lookbook</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-img-bg"></div>
+
+    <!-- Shoe SVG illustration -->
+    <svg class="shoe-graphic" viewBox="0 0 600 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="300" cy="340" rx="260" ry="30" fill="rgba(232,255,0,0.08)"/>
+      <!-- Sole -->
+      <path d="M80 280 Q120 310 200 315 L480 300 Q530 295 540 270 Q545 250 520 245 L460 240 Q420 238 400 230 L300 220 Q260 215 230 225 L150 245 Q110 255 90 265 Z" fill="#1a1a1a" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+      <!-- Midsole yellow stripe -->
+      <path d="M85 272 Q120 290 200 294 L480 280 Q525 275 535 258 Q525 248 490 246 L150 252 Q110 258 88 268 Z" fill="rgba(232,255,0,0.6)"/>
+      <!-- Upper body -->
+      <path d="M160 245 Q180 180 220 155 Q260 130 310 135 L420 145 Q460 148 490 165 Q510 178 510 195 L505 245 Z" fill="#222" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <!-- Laces area -->
+      <path d="M230 210 L420 205" stroke="rgba(255,255,255,0.15)" stroke-width="8" stroke-linecap="round"/>
+      <path d="M245 225 L415 220" stroke="rgba(255,255,255,0.1)" stroke-width="6" stroke-linecap="round"/>
+      <path d="M260 238 L410 234" stroke="rgba(255,255,255,0.08)" stroke-width="5" stroke-linecap="round"/>
+      <!-- Lace crosses -->
+      <line x1="270" y1="207" x2="265" y2="226" stroke="rgba(232,255,0,0.6)" stroke-width="2"/>
+      <line x1="310" y1="206" x2="305" y2="225" stroke="rgba(232,255,0,0.6)" stroke-width="2"/>
+      <line x1="350" y1="205" x2="345" y2="224" stroke="rgba(232,255,0,0.6)" stroke-width="2"/>
+      <line x1="390" y1="205" x2="386" y2="223" stroke="rgba(232,255,0,0.6)" stroke-width="2"/>
+      <!-- Heel tab -->
+      <path d="M155 205 Q148 190 152 175 Q156 160 170 155 L185 155 L180 245 Z" fill="#1a1a1a" stroke="rgba(255,255,255,0.06)"/>
+      <!-- Heel logo -->
+      <circle cx="165" cy="195" r="10" fill="none" stroke="rgba(232,255,0,0.4)" stroke-width="2"/>
+      <text x="160" y="200" fill="rgba(232,255,0,0.6)" font-size="10" font-family="sans-serif" font-weight="bold">A</text>
+      <!-- Toe box highlight -->
+      <path d="M470 165 Q510 178 510 200 L505 215 Q480 195 460 185 Z" fill="rgba(255,255,255,0.04)"/>
+      <!-- Swoosh-like stripe -->
+      <path d="M190 235 Q280 190 400 180 Q450 177 490 190" stroke="rgba(232,255,0,0.3)" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </svg>
+
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-num">4.9★</div>
+        <div class="stat-label">Valoración media</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">12K+</div>
+        <div class="stat-label">Atletas activos</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">Scroll para explorar</div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">RUNNING</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">TRAINING</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">OUTDOOR</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">TRAIL</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">CYCLING</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">SWIMMING</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">RUNNING</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">TRAINING</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">OUTDOOR</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">TRAIL</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">CYCLING</span><span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">SWIMMING</span><span class="ticker-item ticker-sep">✦</span>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<section class="products">
+  <div class="section-header">
+    <div>
+      <div class="section-tag">Destacados</div>
+      <h2 class="section-title">Más<br>vendidos</h2>
+    </div>
+    <a class="see-all" href="#">Ver todos →</a>
+  </div>
+
+  <div class="products-grid">
+
+    <div class="product-card">
+      <div class="product-img" style="background: linear-gradient(135deg, #111 0%, #1e1e1e 100%); min-height: 440px;">
+        <div class="product-visual">
+          <svg viewBox="0 0 300 200" fill="none" width="280">
+            <ellipse cx="150" cy="170" rx="130" ry="15" fill="rgba(232,255,0,0.1)"/>
+            <path d="M40 140 Q60 155 100 158 L240 150 Q265 148 270 135 Q272 125 260 122 L230 120 Q200 119 200 115 L150 110 Q130 107 115 113 L75 123 Q55 128 45 134 Z" fill="#1a1a1a" stroke="rgba(255,255,255,0.08)"/>
+            <path d="M42 136 Q60 148 100 150 L240 142 Q262 140 268 128 Q260 120 240 119 L78 128 Q56 133 43 138 Z" fill="rgba(232,255,0,0.5)"/>
+            <path d="M80 122 Q90 90 110 77 Q130 65 155 68 L210 73 Q230 74 245 83 Q255 89 255 98 L252 122 Z" fill="#222" stroke="rgba(255,255,255,0.06)"/>
+            <path d="M95 117 Q140 95 200 90 Q225 88 245 98" stroke="rgba(232,255,0,0.4)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <path d="M115 105 L210 102" stroke="rgba(255,255,255,0.12)" stroke-width="5" stroke-linecap="round"/>
+            <path d="M120 115 L208 112" stroke="rgba(255,255,255,0.08)" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="product-badge">Nuevo</div>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">Running</div>
+        <div class="product-name">APEX VELOCE<br>PRO X</div>
+        <div class="product-footer">
+          <div class="product-price">€189</div>
+          <a class="add-btn" href="#">+</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img" style="background: linear-gradient(135deg, #0f1a0f 0%, #1a2a1a 100%);">
+        <div class="product-visual">
+          <svg viewBox="0 0 180 180" fill="none" width="120">
+            <rect x="40" y="30" width="100" height="130" rx="8" fill="#1a2a1a" stroke="rgba(255,255,255,0.08)"/>
+            <rect x="50" y="45" width="80" height="50" rx="4" fill="rgba(232,255,0,0.15)" stroke="rgba(232,255,0,0.3)" stroke-width="1.5"/>
+            <text x="62" y="76" fill="rgba(232,255,0,0.8)" font-size="14" font-family="sans-serif" font-weight="bold">APEX</text>
+            <rect x="60" y="105" width="60" height="8" rx="2" fill="rgba(255,255,255,0.1)"/>
+            <rect x="65" y="120" width="50" height="8" rx="2" fill="rgba(255,255,255,0.06)"/>
+            <rect x="70" y="135" width="40" height="8" rx="2" fill="rgba(255,255,255,0.04)"/>
+          </svg>
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">Training</div>
+        <div class="product-name">MOCHILA<br>TRAIL 30L</div>
+        <div class="product-footer">
+          <div class="product-price">€94</div>
+          <a class="add-btn" href="#">+</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img" style="background: linear-gradient(135deg, #1a1a0f 0%, #2a2a1a 100%);">
+        <div class="product-visual">
+          <svg viewBox="0 0 180 180" fill="none" width="100">
+            <circle cx="90" cy="90" r="60" fill="#1a1a0f" stroke="rgba(232,255,0,0.2)" stroke-width="2"/>
+            <circle cx="90" cy="90" r="45" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="12"/>
+            <path d="M90 45 L90 90 L115 90" stroke="rgba(232,255,0,0.8)" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="90" cy="90" r="5" fill="rgba(232,255,0,0.9)"/>
+            <text x="72" y="130" fill="rgba(255,255,255,0.3)" font-size="8" font-family="sans-serif">APEX SPORT</text>
+          </svg>
+        </div>
+        <div class="product-badge">−30%</div>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">Accesorios</div>
+        <div class="product-name">RELOJ GPS<br>ULTRA</div>
+        <div class="product-footer">
+          <div class="product-price">€249</div>
+          <a class="add-btn" href="#">+</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img" style="background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2a 100%);">
+        <div class="product-visual">
+          <svg viewBox="0 0 180 180" fill="none" width="110">
+            <path d="M50 60 Q60 40 90 38 Q120 40 130 60 L140 140 Q120 148 90 148 Q60 148 40 140 Z" fill="#1a1a2a" stroke="rgba(255,255,255,0.08)"/>
+            <path d="M60 80 Q90 70 120 80" stroke="rgba(232,255,0,0.5)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <path d="M65 100 Q90 92 115 100" stroke="rgba(232,255,0,0.3)" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <text x="72" y="125" fill="rgba(232,255,0,0.4)" font-size="18" font-family="sans-serif" font-weight="bold">A</text>
+          </svg>
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">Running</div>
+        <div class="product-name">CAMISETA<br>TECH DRY</div>
+        <div class="product-footer">
+          <div class="product-price">€45</div>
+          <a class="add-btn" href="#">+</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROMO BANNER -->
+<div class="promo-banner">
+  <div>
+    <div class="promo-tag">Oferta limitada</div>
+    <div class="promo-title">−20% en<br>toda la web</div>
+    <p class="promo-sub">Solo este fin de semana. Usa el código APEX20 al finalizar tu compra.</p>
+  </div>
+  <a class="promo-cta" href="#">Comprar ahora</a>
+</div>
+
+<!-- CATEGORIES -->
+<section class="categories">
+  <div>
+    <div class="section-tag">Categorías</div>
+    <h2 class="section-title">Encuentra<br>tu deporte</h2>
+  </div>
+  <div class="cat-grid">
+    <a class="cat-card" href="#">
+      <div class="cat-icon">🏃</div>
+      <div class="cat-name">Running</div>
+      <div class="cat-count">148 productos</div>
+      <div class="cat-arrow">→</div>
+    </a>
+    <a class="cat-card" href="#">
+      <div class="cat-icon">🏋️</div>
+      <div class="cat-name">Gym</div>
+      <div class="cat-count">96 productos</div>
+      <div class="cat-arrow">→</div>
+    </a>
+    <a class="cat-card" href="#">
+      <div class="cat-icon">🚵</div>
+      <div class="cat-name">Outdoor</div>
+      <div class="cat-count">72 productos</div>
+      <div class="cat-arrow">→</div>
+    </a>
+    <a class="cat-card" href="#">
+      <div class="cat-icon">🏊</div>
+      <div class="cat-name">Natación</div>
+      <div class="cat-count">54 productos</div>
+      <div class="cat-arrow">→</div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">APEX</div>
+    <div class="footer-sub">Equipamiento de alto rendimiento para atletas reales.</div>
+  </div>
+  <div class="footer-right">
+    © 2026 APEX Sport. Todos los derechos reservados.<br>
+    <span style="opacity:0.4;font-size:11px">Demo — Wuolah GA4 Test</span>
+  </div>
+</footer>
+
+
+<!-- ======================== -->
+<!-- DEBUG PANEL              -->
+<!-- ======================== -->
+<div id="debug-panel">
+  <div class="debug-header">
+    <span>⚡ GA4 Debug — Wuolah</span>
+    <button class="debug-close" onclick="document.getElementById('debug-panel').classList.remove('visible'); document.getElementById('debug-toggle').style.display='block'">×</button>
+  </div>
+  <div class="debug-body">
+
+    <div class="debug-section">
+      <div class="debug-section-title">Estado</div>
+      <div id="debug-status-box"></div>
+    </div>
+
+    <div class="debug-section">
+      <div class="debug-section-title">UTM Parameters</div>
+      <div id="debug-utms"></div>
+    </div>
+
+    <div class="debug-section">
+      <div class="debug-section-title">Sesión</div>
+      <div id="debug-session"></div>
+    </div>
+
+    <div class="debug-section">
+      <div class="debug-section-title">GA4 Events log</div>
+      <div id="debug-log">Esperando eventos...</div>
+    </div>
+
+  </div>
+</div>
+
+<button class="debug-toggle" id="debug-toggle" onclick="document.getElementById('debug-panel').classList.add('visible'); this.style.display='none'">⚡ Debug</button>
+
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+  document.querySelectorAll('a, button, .product-card, .cat-card').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+  });
+
+  // ========================
+  // DEBUG PANEL LOGIC
+  // ========================
+  const params = new URLSearchParams(window.location.search);
+  const isDebug = params.has('debug') || params.has('_ga4_debug');
+
+  if (isDebug) {
+    document.getElementById('debug-panel').classList.add('visible');
+  } else {
+    // Show subtle toggle anyway for convenience
+    document.getElementById('debug-toggle').style.display = 'block';
+  }
+
+  const utmKeys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'];
+  const utmsPresent = utmKeys.filter(k => params.get(k));
+
+  // Status
+  const statusBox = document.getElementById('debug-status-box');
+  if (utmsPresent.length >= 3) {
+    statusBox.innerHTML = `<div class="debug-status ok">✓ UTMs presentes (${utmsPresent.length}/5) — GA4 atribuirá sesión correctamente</div>`;
+  } else if (utmsPresent.length > 0) {
+    statusBox.innerHTML = `<div class="debug-status warn">⚠ UTMs parciales (${utmsPresent.length}/5) — atribución incompleta</div>`;
+  } else if (document.referrer) {
+    statusBox.innerHTML = `<div class="debug-status warn">⚠ Sin UTMs — GA4 atribuye por referrer: "${document.referrer}"</div>`;
+  } else {
+    statusBox.innerHTML = `<div class="debug-status err">✗ Sin UTMs y sin referrer — sesión como tráfico directo</div>`;
+  }
+
+  // UTMs
+  const utmContainer = document.getElementById('debug-utms');
+  utmKeys.forEach(key => {
+    const val = params.get(key);
+    utmContainer.innerHTML += `
+      <div class="debug-row">
+        <span class="debug-key">${key}</span>
+        <span class="debug-val ${val ? 'ok' : 'err'}">${val || '—'}</span>
+      </div>`;
+  });
+
+  // Session info
+  document.getElementById('debug-session').innerHTML = `
+    <div class="debug-row"><span class="debug-key">referrer</span><span class="debug-val ${document.referrer ? 'ok' : 'warn'}">${document.referrer || '(vacío)'}</span></div>
+    <div class="debug-row"><span class="debug-key">timestamp</span><span class="debug-val">${new Date().toISOString()}</span></div>
+    <div class="debug-row"><span class="debug-key">GA4 ID</span><span class="debug-val ok">G-6XV9YYH466</span></div>
+    <div class="debug-row"><span class="debug-key">debug_mode</span><span class="debug-val ok">true</span></div>
+  `;
+
+  // GA4 event log
+  const logEl = document.getElementById('debug-log');
+  let logLines = [];
+  function addLog(event, detail) {
+    const ts = new Date().toLocaleTimeString('es-ES', { hour12: false });
+    logLines.push(`[${ts}] ${event} ${detail}`);
+    logEl.innerHTML = logLines.join('\n');
+    logEl.scrollTop = logEl.scrollHeight;
+  }
+
+  setTimeout(() => {
+    addLog('page_view', `url="${window.location.pathname}"`);
+    if (utmsPresent.length > 0) {
+      addLog('session_start', `src="${params.get('utm_source')}" med="${params.get('utm_medium')}"`);
+    }
+  }, 600);
+
+  // GA4 tracking
+  gtag('event', 'page_view', {
+    page_title: document.title,
+    page_location: window.location.href,
+    page_referrer: document.referrer
+  });
+</script>
+
+</body>
+</html>
